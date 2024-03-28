@@ -1,9 +1,15 @@
 import { Router } from "express";
-import { traerUsuario } from "../controller/userController.js";
+import { registrarUsuario, traerUsuario } from "../controller/userController.js";
+import { validarCorreo } from "../middlewares/userMiddleware.js";
+import { validarCampos } from "../middlewares/validarCampos.js";
 
 const userRouter = Router();
 
-userRouter.get("/", traerUsuario)
+userRouter.get("/",traerUsuario);
+
+userRouter.post("/",[
+    validarCorreo,
+validarCampos], registrarUsuario);
 
 
 export {userRouter}
