@@ -1,10 +1,24 @@
+import { Usuario } from "../model/user.js"
 
-const traerUsuario = (req, res) => {
+const traerUsuario = async(req, res) => {
 
-    return res.send({
-        msg: "Todo bien"
-    })
-    
+    try{
+        
+       const usuarios = await Usuario.find({estatus: true});
+
+        return res.send({
+            usuarios
+        })
+        
+
+
+    }catch(e){
+        return res.status(500).send({
+            error: e
+        })
+    }
+
+
 }
 
 

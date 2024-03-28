@@ -1,15 +1,28 @@
 import  express  from "express";
 import cors from 'cors';
 import { userRouter } from "../routes/userRoutes.js";
+import { connectDB } from "../database/config.js";
 
 class Server{
 
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
+        this.connection();
         this.middlewares();
         this.routes();
     }
+
+    async connection(){
+
+        try{
+            await connectDB();
+        }catch(e){
+            console.log(e);
+        }
+       
+    }
+
 
   
     middlewares(){
