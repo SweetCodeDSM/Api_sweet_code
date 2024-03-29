@@ -39,6 +39,7 @@ class Server{
 
     routes(){
         this.app.use("/user", userRouter)
+        this.app.use("/bank")
     }
 
 
