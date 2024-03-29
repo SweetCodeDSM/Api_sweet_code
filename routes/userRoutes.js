@@ -8,8 +8,7 @@ const userRouter = Router();
 userRouter.get("/",traerUsuario);
 
 userRouter.post("/",[
-    validarCorreo,
-validarCampos], registrarUsuario);
+    validarCorreo], registrarUsuario);
 
 
 export {userRouter}

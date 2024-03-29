@@ -1,5 +1,5 @@
 import bcryptjs from 'bcryptjs';
-import { Usuario } from "../model/user.js"
+import { Usuario } from "../model/user.js";
 
 const traerUsuario = async(req, res) => {
 
@@ -30,8 +30,8 @@ const registrarUsuario = async(req, res) => {
         const {nombre, apellidoP, apellidoM, email, password} = req.body;
         const salt = bcryptjs.genSaltSync(10);
         const contrasenia = bcryptjs.hashSync(password, salt);
-        const usuario = new Usuario({nombre, apellidoP, apellidoM, email, contrasenia});
-        usuario.save();
+        const usuario = await new Usuario({nombre, apellidoP, apellidoM, email, password: contrasenia});
+        await usuario.save();
 
         return res.send({
             usuario
