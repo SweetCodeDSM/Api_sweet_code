@@ -48,4 +48,30 @@ const registrarUsuario = async(req, res) => {
 
 }
 
-export {traerUsuario, registrarUsuario}
+
+const modificarUsuario = async(req, res) => {
+    const {id} = req.params;
+    const {estatus, email,...resto} = req.body;
+
+    if(resto.password){
+        const salt = bcryptjs.genSaltSync(10);
+        const contrasenia = bcryptjs.hashSync(resto.password, salt)
+        resto.password = contrasenia;
+    }
+
+    try{
+
+        const usuario = await Usuario.findByIdAndUpdate(id, resto);
+        res.send({
+            msg: "all gud"
+        })
+
+    }catch(e){
+        return res.status(500).send({
+            msg: e
+        })
+    }
+
+}
+
+export {traerUsuario, registrarUsuario, modificarUsuario}

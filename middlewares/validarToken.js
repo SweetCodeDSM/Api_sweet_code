@@ -1,9 +1,10 @@
 import  jwt from "jsonwebtoken";
-import { Usuario } from "../model/user";
+import { Usuario } from "../model/user.js";
 
 
 const validarToken = async(req, res, next) => {
-    const token = req.header;
+
+    const token = req.header('token');
 
     if(!token){
         return res.status(401).send({
@@ -13,26 +14,34 @@ const validarToken = async(req, res, next) => {
 
 
     try{
-        const {uid} = jwt.verify(token, process.env.TOKENFIRM);
+        const {idUsuario} = jwt.verify(token, process.env.TOKENFIRM);
 
-        req.idUsuario = uid;
-    
-        const usuario = await Usuario.findById(uid);
+        req.id = idUsuario;
+        
+        const usuarioValidado = await Usuario.findById(idUsuario);
 
-        if(!usuario || usuario.estatus === false){
+        if(!usuarioValidado){
             return res.status(401).send({
                 msg: "No existe el usuario"
             })
         }
 
-        req.usuario = usuario;
+        if(usuarioValidado.estatus == false){
+            return res.status(401).send({
+                msg: "No existe el usuario"
+            })
+        }
+
+        req.usuario = usuarioValidado;
         next();
 
      
     }catch(e){
         return res.status(500).send({
-            msg: e
+            msg: "Token no valido"
         })
     }
     
 }
+
+export {validarToken}
