@@ -2,6 +2,8 @@ import  express  from "express";
 import cors from 'cors';
 import { userRouter } from "../routes/userRoutes.js";
 import { connectDB } from "../database/config.js";
+import { bankRouter } from "../routes/bankRoutes.js";
+import { loginRouter } from "../routes/loginRoutes.js";
 
 class Server{
 
@@ -38,8 +40,9 @@ class Server{
     }
 
     routes(){
-        this.app.use("/user", userRouter)
-        this.app.use("/bank")
+        this.app.use("/user", userRouter);
+        this.app.use("/bank", bankRouter);
+        this.app.use("/login", loginRouter);
     }
 
 

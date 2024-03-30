@@ -6,7 +6,7 @@ import { getInformacion } from "../controller/bankController.js";
 
 const bankRouter = Router();
 
-bankRouter.get("/:nombre", getInformacion);
+bankRouter.get("/", getInformacion);
 
 
 

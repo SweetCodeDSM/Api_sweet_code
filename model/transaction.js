@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 
 const transaction = Schema({
@@ -14,8 +14,13 @@ const transaction = Schema({
     fecha: {
         type: Date,
         required: [true, 'fecha requerida']
+    },
+    monto: {
+        type: Number,
+        required: [true, 'Monto requerido']
     }
 });
 
+const Transaccion = model('Transaccion', transaction);
 
-export {transaction}
+export {Transaccion}
